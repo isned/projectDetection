@@ -1,14 +1,22 @@
-# Utilisez une image de base contenant Python
-FROM python:3.9
+# Utiliser l'image Python officielle de base
+FROM python:3.8-slim
 
-# Installez les dépendances Python
-RUN pip install tensorflow numpy matplotlib scikit-learn jupyterlab
+# Mettre à jour la liste des paquets et installer les dépendances nécessaires
+RUN apt-get update && \
+    apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copiez le contenu de votre projet dans le conteneur
-COPY . /app
-
-# Définissez le répertoire de travail
+# Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Commande par défaut à exécuter lorsque le conteneur démarre
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--allow-root"]
+# Copier les fichiers requis dans le conteneur
+COPY requirements.txt .
+
+# Installer les dépendances Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier le code source de l'application dans le conteneur
+COPY . .
+
+# Commande par défaut pour lancer l'application Streamlit
+CMD ["streamlit", "run", "app.py"]
