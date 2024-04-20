@@ -19,4 +19,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Commande par défaut pour lancer l'application Streamlit
-CMD ["streamlit", "run", "app.py"]
+CMD ["streamlit", "run", "detect_gender_webcam.py"]
