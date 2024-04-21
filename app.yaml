@@ -1,0 +1,7 @@
+runtime: python38
+
+entrypoint: streamlit run detect_gender_webcam.py
+
+handlers:
+- url: .*
+  script: auto
