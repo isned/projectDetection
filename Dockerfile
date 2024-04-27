@@ -18,5 +18,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier le code source de l'application dans le conteneur
 COPY . .
 
+# Exposer le port 8501
+EXPOSE 8501
+
 # Commande par défaut pour lancer l'application Streamlit
 CMD ["streamlit", "run", "detect_gender_webcam.py"]
